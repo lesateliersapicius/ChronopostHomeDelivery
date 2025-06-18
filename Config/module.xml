@@ -22,7 +22,7 @@
             <email>info@thelia.net</email>
         </author>
     </authors>
-    <type>classic</type>
+    <type>delivery</type>
     <thelia>2.5.0</thelia>
     <stability>other</stability>
     <mandatory>0</mandatory>
