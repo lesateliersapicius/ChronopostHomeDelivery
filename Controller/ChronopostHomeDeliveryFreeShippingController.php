@@ -10,11 +10,11 @@ use ChronopostHomeDelivery\Model\ChronopostHomeDeliveryDeliveryModeQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Thelia\Controller\Admin\BaseAdminController;
 use Thelia\Core\Security\AccessManager;
 use Thelia\Core\Security\Resource\AdminResources;
 use Thelia\Model\AreaQuery;
-use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/admin/module/chronopost-home-delivery", name="chronopost-home-delivery")
@@ -45,9 +45,9 @@ class ChronopostHomeDeliveryFreeShippingController extends BaseAdminController
             $deliveryMode
                 ->setFreeshippingActive($freeshipping)
                 ->save();
-            $response = Response::create('');
+            $response = new Response('');
         } catch (\Exception $e) {
-            $response = JsonResponse::create(array("error" => $e->getMessage()), 500);
+            $response = new JsonResponse(array("error" => $e->getMessage()), 500);
         }
 
         return $response;
