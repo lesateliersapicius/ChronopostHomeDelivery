@@ -13,6 +13,8 @@
 namespace ChronopostHomeDelivery;
 
 use ChronopostHomeDelivery\Config\ChronopostHomeDeliveryConst;
+use ChronopostHomeDelivery\Event\CartPostageEvent;
+use ChronopostHomeDelivery\Event\ChronopostHomeDeliveryEvents;
 use ChronopostHomeDelivery\Model\ChronopostHomeDeliveryAreaFreeshippingQuery;
 use ChronopostHomeDelivery\Model\ChronopostHomeDeliveryDeliveryMode;
 use ChronopostHomeDelivery\Model\ChronopostHomeDeliveryDeliveryModeQuery;
@@ -420,10 +422,12 @@ class ChronopostHomeDelivery extends AbstractDeliveryModuleWithState
     public function getPostage(Country $country, State $state = null)
     {
         $request = $this->getRequest();
-
-        $cartWeight = $request->getSession()->getSessionCart($this->getDispatcher())->getWeight();
-        $cartAmount = $request->getSession()->getSessionCart($this->getDispatcher())->getTaxedAmount($country);
-
+        $cart = $request->getSession()->getSessionCart($this->getDispatcher());
+        $postageEvent = new CartPostageEvent($cart);
+        $this->getDispatcher()->dispatch($postageEvent, ChronopostHomeDeliveryEvents::CART_POSTAGE_WEIGHT);
+        $cartWeight = $postageEvent->getWeight();
+        $cartAmount = $cart->getTaxedAmount($country);
+        
 
         /** Get the delivery type of an ongoing order by looking at the request */
         $deliveryType = $this->getDeliveryType($request);
