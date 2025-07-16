@@ -39,7 +39,7 @@ class ChronopostHomeDeliveryDeliveryMode extends BaseLoop implements PropelSearc
     public function buildModelCriteria(): ChronopostHomeDeliveryDeliveryModeQuery|ModelCriteria
     {
         $q = ChronopostHomeDeliveryDeliveryModeQuery::create()
-            ->filterEnabled($this->getByCode() ?? []);
+            ->filterEnabledQuery($this->getByCode() ?? []);
 
         return $q;
     }

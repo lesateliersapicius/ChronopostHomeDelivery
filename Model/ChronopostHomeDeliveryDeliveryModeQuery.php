@@ -23,7 +23,7 @@ class ChronopostHomeDeliveryDeliveryModeQuery extends BaseChronopostHomeDelivery
      * @param array $filterByCode example ['2R','44','2S']
      * @return ChronopostHomeDeliveryDeliveryModeQuery
      */
-    public function filterEnabled(array $filterByCode = []): ChronopostHomeDeliveryDeliveryModeQuery
+    public function filterEnabledQuery(array $filterByCode = []): ChronopostHomeDeliveryDeliveryModeQuery
     {
         $config               = ChronopostHomeDeliveryConst::getConfig();
         $modes                = self::create();

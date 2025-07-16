@@ -21,6 +21,7 @@ use ChronopostHomeDelivery\Event\ChronopostHomeDeliveryEvents;
 use ChronopostHomeDelivery\Model\ChronopostHomeDeliveryAreaFreeshippingQuery;
 use ChronopostHomeDelivery\Model\ChronopostHomeDeliveryDeliveryMode;
 use ChronopostHomeDelivery\Model\ChronopostHomeDeliveryDeliveryModeQuery;
+use ChronopostHomeDelivery\Model\ChronopostHomeDeliveryPrice;
 use ChronopostHomeDelivery\Model\ChronopostHomeDeliveryPriceQuery;
 use PDO;
 use Propel\Runtime\ActiveQuery\Criteria;
@@ -266,13 +267,13 @@ class ChronopostHomeDelivery extends AbstractDeliveryModuleWithState
      * Return the postage price for a given area, cart weight, cart amount, and delivery type
      *
      * @param $areaId
-     * @param $weight
-     * @param int $cartAmount
+     * @param float $weight
+     * @param float $cartAmount
      * @param null $deliveryCode
-     * @return int
+     * @return float
      * @throws \Exception
      */
-    public static function getPostageAmount($areaId, $weight, $cartAmount = 0, $deliveryCode = null)
+    public static function getPostageAmount($areaId, $weight, $cartAmount = 0.0, $deliveryCode = null)
     {
         if (null === $deliveryType = ChronopostHomeDeliveryDeliveryModeQuery::create()->findOneByCode($deliveryCode)) {
             throw new \Exception("The delivery code given is not supported by the module.");
@@ -293,7 +294,7 @@ class ChronopostHomeDelivery extends AbstractDeliveryModuleWithState
         }
 
         /** Set the initial postage price as 0 */
-        $postage = 0;
+        $postage = 0.0;
 
         /** If free shipping is enabled, skip and return 0 */
         if (!$freeShipping) {
@@ -333,7 +334,7 @@ class ChronopostHomeDelivery extends AbstractDeliveryModuleWithState
                 ->orderByWeightMax()
                 ->orderByPriceMax();
 
-            /** Find the correct postage price for the cart weight and price according to the area and delivery mode in $areaPrices*/
+            /** @var ChronopostHomeDeliveryPrice $firstPrice Find the correct postage price for the cart weight and price according to the area and delivery mode in $areaPrices*/
             $firstPrice = $areaPrices
                 ->find()
                 ->getFirst()
