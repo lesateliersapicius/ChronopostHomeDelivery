@@ -10,7 +10,7 @@
 {/loop}
 
 
-    <div class="general-block-decorator">
+    <div class="general-block-decorator chronopost-home-delivery-panel">
         <div class="row">
             <div class="col-md-12">
 
@@ -50,10 +50,10 @@
                                 <div>
                                     {form_hidden_fields}
                                     {form_field field="success_url"}
-                                        <input type="hidden" name="{$name}" value="{url path="/admin/module/ChronopostHomeDelivery?current_tab=prices_slices_tab_$deliveryModeId"}">
+                                        <input type="hidden" class="input-chronopost-home-delivery-success-url" name="{$name}" value="{url path="/admin/module/ChronopostHomeDelivery?current_tab=prices_slices_tab_$deliveryModeId"}">
                                     {/form_field}
                                     {form_field field="error_url"}
-                                        <input type="hidden" name="{$name}" value="{url path="/admin/module/ChronopostHomeDelivery?current_tab=prices_slices_tab_$deliveryModeId"}">
+                                        <input type="hidden" class="input-chronopost-home-delivery-error-url" name="{$name}" value="{url path="/admin/module/ChronopostHomeDelivery?current_tab=prices_slices_tab_$deliveryModeId"}">
                                     {/form_field}
                                     {form_field field="delivery_mode_id"}
                                         <input type="hidden" name="{$name}" value="{$deliveryModeId}">
@@ -131,28 +131,44 @@
                                                         <small>{intl d='chronoposthomedelivery.bo.default' l="Area : "}</small> {$NAME}
                                                     </label>
                                                 </th>
-                                                <th width="40%">
+                                                <th colspan="2">
                                                     <div id="area-freeshipping-{$area_id}" {if $isChronopostHomeDeliveryFreeShipping eq 1}  style="display:none;" {/if}>
+                                                        {form  name="chronopost.home.delivery.area.freeshipping.form"}
                                                         <form action="{url path="/admin/module/chronopost-home-delivery/area_freeshipping"}"  method="post">
+
+                                                            {form_field field="success_url"}
+                                                                <input type="hidden" class="input-chronopost-home-delivery-success-url" name="{$name}" value="{url path="/admin/module/ChronopostHomeDelivery?current_tab=prices_slices_tab_$deliveryModeId"}">
+                                                            {/form_field}
+                                                            {form_field field="error_url"}
+                                                                <input type="hidden" class="input-chronopost-home-delivery-error-url" name="{$name}" value="{url path="/admin/module/ChronopostHomeDelivery?current_tab=prices_slices_tab_$deliveryModeId"}">
+                                                            {/form_field}
+                                                            {form_field field="delivery_mode_id"}
+                                                                <input type="hidden" name="{$name}" value="{$deliveryModeId}">
+                                                            {/form_field}
+                                                            {form_field field="area"}
+                                                                <input type="hidden" name="{$name}" value="{$area_id}">
+                                                            {/form_field}
+                                                            {form_hidden_fields}
                                                             <div class="input-group">
                                                                 <span class="input-group-addon {if $area_id }alert-success{/if}">{intl l="Activate free shipping from (€) :" d="chronoposthomedelivery.bo.default"}</span>
-                                                                <input type="hidden" name="area-id" value="{$area_id}">
-                                                                <input type="hidden" name="delivery-mode" value="{$deliveryModeId}">
 
-                                                                {ifloop rel="area_freeshipping"}
-                                                                {loop type="chronopost.home.delivery.area.freeshipping" name="area_freeshipping" area_id=$area_id delivery_mode_id=$deliveryModeId}
-                                                                    <input type="number" step="0.01" name="cart-amount" class="form-control" value="{$CART_AMOUNT}">
-                                                                {/loop}
-                                                                {/ifloop}
-                                                                {elseloop rel="area_freeshipping"}
-                                                                    <input type="number" step="0.01" name="cart-amount" class="form-control" value="">
-                                                                {/elseloop}
+                                                                {form_field field="cart_amount"}
+                                                                    {ifloop rel="area_freeshipping"}
+                                                                    {loop type="chronopost.home.delivery.area.freeshipping" name="area_freeshipping" area_id=$area_id delivery_mode_id=$deliveryModeId}
+                                                                        <input type="number" step="0.01" name="{$name}" class="form-control" value="{$CART_AMOUNT}">
+                                                                    {/loop}
+                                                                    {/ifloop}
+                                                                    {elseloop rel="area_freeshipping"}
+                                                                        <input type="number" step="0.01" name="{$name}" class="form-control" value="">
+                                                                    {/elseloop}
+                                                                {/form_field}
 
                                                                 <span class="input-group-btn">
                                                                     <button class="btn btn-default" type="submit">{intl l="Save"}</button>
                                                                 </span>
                                                             </div>
                                                         </form>
+                                                        {/form}
                                                     </div>
                                                 </th>
                                             </tr>
