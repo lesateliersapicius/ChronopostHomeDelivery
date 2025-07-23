@@ -26,5 +26,7 @@ Vous pouvez créer des tranches de prix en spécifiant un poids maximal du panie
 Si vous ne spécifiez pas de poids dans une tranche, celle-ci aura la priorité sur les tranches qui en ont un.
 Si vous ne spécifiez pas de prix dans une tranche, elle aura la priorité sur les autres tranches ayant le même poids.
 Si vous spécifiez à la fois un poids et un prix, le panier devra avoir "un poids inférieur ET un prix inférieur" pour que la tranche soit appliquée.
-TXT
+TXT,
+    'Area not found'                                  => 'Zone de livraison non trouvée',
+    'Delivery mode not found'                         => 'Mode de livraison non trouvé'
 ];
