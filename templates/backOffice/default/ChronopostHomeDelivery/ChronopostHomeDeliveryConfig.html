@@ -19,7 +19,7 @@
                     <li class="{if $tab eq "configure"}active{/if}"><a data-toggle="tab" href="#configure">{intl l="Advanced configuration" d='chronoposthomedelivery.bo.default'}</a></li>
 
                     {loop type="chronopost.home.delivery.delivery.mode" name="delivery_mode" backend_context=1}
-                        <li class="{if $tab eq "prices_slices_tab_{$ID}"}active{/if}"><a data-toggle="tab" href="#prices_slices_tab_{$ID}">{intl l="Price slices for \"%mode\"" d='chronoposthomedelivery.bo.default' mode={$TITLE}}</a></li>
+                        <li class="{if $tab eq "prices_slices_tab_{$ID}"}active{/if}"><a data-toggle="tab" href="#prices_slices_tab_{$ID}">{intl l='Price slices for "%mode"' d='chronoposthomedelivery.bo.default' mode={$TITLE}}</a></li>
                     {/loop}
 
                     <li class="{if $tab eq "tax_rule"}active{/if}"><a data-toggle="tab" href="#tax_rule">{intl l="Tax Rule" d='chronoposthomedelivery.bo.default'}</a> </li>

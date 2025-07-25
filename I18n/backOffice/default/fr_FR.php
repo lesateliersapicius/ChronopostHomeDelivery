@@ -11,7 +11,7 @@ return [
     'Area : '                                         => 'Zone : ',
     'Or activate free shipping from (€) :'            => 'Ou activer la livraison gratuite à partir de (€) :',
     'Activate total free shipping '                   => 'Activer la gratuité totale des frais de port',
-    'Price slices for \"%mode\"'                      => 'Tranches de prix pour \"%mode\"',
+    'Price slices for "%mode"'                        => 'Tranches de prix pour "%mode"',
     'Advanced configuration'                          => 'Configuration avancée',
     'Delete this price slice'                         => 'Supprimer cette tranche de prix',
     'Save this price slice'                           => 'Enregister cette tranche de prix',
