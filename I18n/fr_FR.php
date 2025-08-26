@@ -11,5 +11,7 @@ return [
     "The price max value is not valid"  => "La valeur maximale du prix n'est pas valide",
     "The weight max value is not valid" => "La valeur maximale du poids n'est pas valide",
     "The price value is not valid"      => "La valeur du prix n'est pas valide",
-    "Your slice has been saved"         => "Votre tranche a été sauvegardée"
+    "Your slice has been saved"         => "Votre tranche a été sauvegardée",
+    "Chronopost delivery unavailable for your cart weight or delivery country"
+                                        => "Livraison Chronopost indisponible pour le poids de votre panier ou le pays de livraison"
 ];
