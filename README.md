@@ -101,3 +101,4 @@ None
 
 Templates are examples of integration for the default theme of Thelia and should probably be
 modified to suit your website better.
+test
