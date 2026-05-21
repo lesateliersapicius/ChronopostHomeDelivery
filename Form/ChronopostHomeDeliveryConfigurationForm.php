@@ -4,6 +4,7 @@ namespace ChronopostHomeDelivery\Form;
 
 
 use ApyVoucherShipments\Model\ApyShipper;
+use ChronopostHomeDelivery\ChronopostHomeDelivery;
 use ChronopostHomeDelivery\Config\ChronopostHomeDeliveryConst;
 use ChronopostHomeDelivery\Model\ChronopostHomeDeliveryDeliveryModeQuery;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -59,7 +60,7 @@ class ChronopostHomeDeliveryConfigurationForm extends BaseForm
         /** Tracking link — start/end URL split from the concatenated config value */
         $maskUrlConfig = $config[ChronopostHomeDeliveryConst::CHRONOPOST_HOME_DELIVERY_MASK_URL];
         $maskUrlParts = $maskUrlConfig
-            ? preg_split('{' . ApyShipper::MASK_SEPARATOR . '}', $maskUrlConfig)
+            ? explode(ApyShipper::MASK_SEPARATOR, $maskUrlConfig, 2)
             : ['', ''];
         $startMaskUrl = $maskUrlParts[0] ?? '';
         $endMaskUrl = $maskUrlParts[1] ?? '';
@@ -71,7 +72,7 @@ class ChronopostHomeDeliveryConfigurationForm extends BaseForm
                 'label'    => Translator::getInstance()->trans(
                     'Start URL',
                     [],
-                    'chronoposthomedelivery.bo.default'
+                    ChronopostHomeDelivery::BO_DOMAIN_NAME
                 ),
             ])
             ->add('end_mask_url', TextType::class, [
@@ -80,7 +81,7 @@ class ChronopostHomeDeliveryConfigurationForm extends BaseForm
                 'label'       => Translator::getInstance()->trans(
                     'End URL',
                     [],
-                    'chronoposthomedelivery.bo.default'
+                    ChronopostHomeDelivery::BO_DOMAIN_NAME
                 ),
                 'constraints' => [new Callback(['callback' => [$this, 'verifyStartMaskUrl']])],
             ])
@@ -132,7 +133,7 @@ class ChronopostHomeDeliveryConfigurationForm extends BaseForm
                 Translator::getInstance()->trans(
                     'End URL cannot be set without a Start URL',
                     [],
-                    'chronoposthomedelivery.bo.default'
+                    ChronopostHomeDelivery::BO_DOMAIN_NAME
                 )
             );
         }

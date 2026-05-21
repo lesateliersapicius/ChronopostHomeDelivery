@@ -49,6 +49,12 @@ class ChronopostHomeDelivery extends AbstractDeliveryModuleWithState
     /** @var string */
     const DOMAIN_NAME = 'chronoposthomedelivery';
 
+    /** Thelia module code (class name) — used in delivery module comparisons */
+    const MODULE_CODE = 'ChronopostHomeDelivery';
+
+    /** Back-office i18n domain (matches I18n/backOffice/default/) */
+    const BO_DOMAIN_NAME = 'chronoposthomedelivery.bo.default';
+
     const CHRONOPOST_CONFIRMATION_MESSAGE_NAME = 'chronopost_home_delivery_confirmation_message_name';
 
     const CHRONOPOST_TAX_RULE_ID = 'chronopost_home_delivery_tax_rule_id';

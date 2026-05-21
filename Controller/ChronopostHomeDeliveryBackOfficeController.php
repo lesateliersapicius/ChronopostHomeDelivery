@@ -64,7 +64,7 @@ class ChronopostHomeDeliveryBackOfficeController extends BaseAdminController
             /** Tracking link mask URL (concatenation start.MASK_SEPARATOR.end, or '' if both empty) */
             $startMaskUrl = $data['start_mask_url'] ?? '';
             $endMaskUrl = $data['end_mask_url'] ?? '';
-            $maskUrl = ($startMaskUrl || $endMaskUrl)
+            $maskUrl = ($startMaskUrl !== '' || $endMaskUrl !== '')
                 ? $startMaskUrl . ApyShipper::MASK_SEPARATOR . $endMaskUrl
                 : '';
             ChronopostHomeDelivery::setConfigValue(
