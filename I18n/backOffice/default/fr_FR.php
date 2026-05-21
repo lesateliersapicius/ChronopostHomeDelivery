@@ -30,8 +30,8 @@ TXT,
     'Area not found'                                  => 'Zone de livraison non trouvée',
     'Delivery mode not found'                         => 'Mode de livraison non trouvé',
     'Tracking link creation'                          => 'Création du lien de suivi',
-    'Start URL'                                       => 'URL de début',
-    'End URL'                                         => 'URL de fin',
+    'Start URL'                                       => 'Début du lien de suivi',
+    'End URL'                                         => 'Fin du lien de suivi',
     'Preview: '                                       => 'Aperçu : ',
     'End URL cannot be set without a Start URL'       => 'L\'URL de fin ne peut être saisie sans une URL de début'
 ];

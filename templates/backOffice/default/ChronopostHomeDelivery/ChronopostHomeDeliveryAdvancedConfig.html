@@ -47,6 +47,27 @@
                             {/foreach}
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="well">
+                                <h3>{intl l='Tracking link creation' d='chronoposthomedelivery.bo.default'}</h3>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        {render_form_field field='start_mask_url' extra_class='chronopost-mask-url-content chronopost-mask-url-prefix'}
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        {render_form_field field='end_mask_url' extra_class='chronopost-mask-url-content chronopost-mask-url-suffix'}
+                                    </div>
+                                </div>
+                                <div class="chronopost-mask-url-wrapper">
+                                    <small>{intl l='Preview: ' d='chronoposthomedelivery.bo.default'}
+                                        <strong class="chronopost-mask-url-preview"></strong>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
@@ -59,4 +80,27 @@
         var x = document.getElementById(id);
         x.type = (x.type === "password")? "text" : "password";
     }
+
+    (function ($) {
+        function chronopostMaskUrlPreview() {
+            var prefix = '', suffix = '';
+            var $preview = $('.chronopost-mask-url-preview');
+            $preview.hide();
+            $('.chronopost-mask-url-content').each(function () {
+                var $el = $(this);
+                if ($el.hasClass('chronopost-mask-url-prefix') && $el.val()) {
+                    prefix = $el.val();
+                }
+                if ($el.hasClass('chronopost-mask-url-suffix') && $el.val()) {
+                    suffix = $el.val();
+                }
+            });
+            if (prefix || suffix) {
+                $preview.text(prefix + 'XXXXXXXXXXXXX' + suffix).show();
+            }
+        }
+        $(document)
+            .ready(chronopostMaskUrlPreview)
+            .on('change keyup', '.chronopost-mask-url-content', chronopostMaskUrlPreview);
+    })(jQuery);
 </script>

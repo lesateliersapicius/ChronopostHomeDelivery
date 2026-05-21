@@ -4,7 +4,6 @@ namespace ChronopostHomeDelivery\Form;
 
 
 use ApyVoucherShipments\Model\ApyShipper;
-use ChronopostHomeDelivery\ChronopostHomeDelivery;
 use ChronopostHomeDelivery\Config\ChronopostHomeDeliveryConst;
 use ChronopostHomeDelivery\Model\ChronopostHomeDeliveryDeliveryModeQuery;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -72,7 +71,7 @@ class ChronopostHomeDeliveryConfigurationForm extends BaseForm
                 'label'    => Translator::getInstance()->trans(
                     'Start URL',
                     [],
-                    ChronopostHomeDelivery::DOMAIN_NAME
+                    'chronoposthomedelivery.bo.default'
                 ),
             ])
             ->add('end_mask_url', TextType::class, [
@@ -81,7 +80,7 @@ class ChronopostHomeDeliveryConfigurationForm extends BaseForm
                 'label'       => Translator::getInstance()->trans(
                     'End URL',
                     [],
-                    ChronopostHomeDelivery::DOMAIN_NAME
+                    'chronoposthomedelivery.bo.default'
                 ),
                 'constraints' => [new Callback(['callback' => [$this, 'verifyStartMaskUrl']])],
             ])
@@ -133,7 +132,7 @@ class ChronopostHomeDeliveryConfigurationForm extends BaseForm
                 Translator::getInstance()->trans(
                     'End URL cannot be set without a Start URL',
                     [],
-                    ChronopostHomeDelivery::DOMAIN_NAME
+                    'chronoposthomedelivery.bo.default'
                 )
             );
         }
