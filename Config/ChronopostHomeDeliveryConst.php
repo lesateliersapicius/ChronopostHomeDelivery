@@ -28,6 +28,9 @@ class ChronopostHomeDeliveryConst
     /** Tracking link mask URL (start.MASK_SEPARATOR.end concatenated) */
     const CHRONOPOST_HOME_DELIVERY_MASK_URL                       = "chronopost_home_delivery_mask_url";
 
+    /** Placeholder inserted in the tracking URL — replaced by the parcel reference at display time */
+    const MASK_SEPARATOR                                          = '{REF}';
+
     /** WSDL for the Chronopost Shipping Service */
     const CHRONOPOST_HOME_DELIVERY_SHIPPING_SERVICE_WSDL              = "https://ws.chronopost.fr/shipping-cxf/ShippingServiceWS?wsdl";
     //const CHRONOPOST_HOME_DELIVERY_RELAY_SEARCH_SERVICE_WSDL          = "https://ws.chronopost.fr/recherchebt-ws-cxf/PointRelaisServiceWS?wsdl";

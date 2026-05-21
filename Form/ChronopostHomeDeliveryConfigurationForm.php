@@ -3,7 +3,6 @@
 namespace ChronopostHomeDelivery\Form;
 
 
-use ApyVoucherShipments\Model\ApyShipper;
 use ChronopostHomeDelivery\ChronopostHomeDelivery;
 use ChronopostHomeDelivery\Config\ChronopostHomeDeliveryConst;
 use ChronopostHomeDelivery\Model\ChronopostHomeDeliveryDeliveryModeQuery;
@@ -60,7 +59,7 @@ class ChronopostHomeDeliveryConfigurationForm extends BaseForm
         /** Tracking link — start/end URL split from the concatenated config value */
         $maskUrlConfig = $config[ChronopostHomeDeliveryConst::CHRONOPOST_HOME_DELIVERY_MASK_URL];
         $maskUrlParts = $maskUrlConfig
-            ? explode(ApyShipper::MASK_SEPARATOR, $maskUrlConfig, 2)
+            ? explode(ChronopostHomeDeliveryConst::MASK_SEPARATOR, $maskUrlConfig, 2)
             : ['', ''];
         $startMaskUrl = $maskUrlParts[0] ?? '';
         $endMaskUrl = $maskUrlParts[1] ?? '';

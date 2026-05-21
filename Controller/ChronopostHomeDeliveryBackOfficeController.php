@@ -3,7 +3,6 @@
 namespace ChronopostHomeDelivery\Controller;
 
 
-use ApyVoucherShipments\Model\ApyShipper;
 use ChronopostHomeDelivery\ChronopostHomeDelivery;
 use ChronopostHomeDelivery\Config\ChronopostHomeDeliveryConst;
 use ChronopostHomeDelivery\Form\ChronopostHomeDeliveryConfigurationForm;
@@ -65,7 +64,7 @@ class ChronopostHomeDeliveryBackOfficeController extends BaseAdminController
             $startMaskUrl = $data['start_mask_url'] ?? '';
             $endMaskUrl = $data['end_mask_url'] ?? '';
             $maskUrl = ($startMaskUrl !== '' || $endMaskUrl !== '')
-                ? $startMaskUrl . ApyShipper::MASK_SEPARATOR . $endMaskUrl
+                ? $startMaskUrl . ChronopostHomeDeliveryConst::MASK_SEPARATOR . $endMaskUrl
                 : '';
             ChronopostHomeDelivery::setConfigValue(
                 ChronopostHomeDeliveryConst::CHRONOPOST_HOME_DELIVERY_MASK_URL,
