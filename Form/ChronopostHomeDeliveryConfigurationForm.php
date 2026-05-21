@@ -74,6 +74,9 @@ class ChronopostHomeDeliveryConfigurationForm extends BaseForm
                     [],
                     ChronopostHomeDelivery::BO_DOMAIN_NAME
                 ),
+                'attr'     => [
+                    'data-chronopost-mask-role' => 'prefix',
+                ],
             ])
             ->add('end_mask_url', TextType::class, [
                 'required'    => false,
@@ -83,6 +86,9 @@ class ChronopostHomeDeliveryConfigurationForm extends BaseForm
                     [],
                     ChronopostHomeDelivery::BO_DOMAIN_NAME
                 ),
+                'attr'        => [
+                    'data-chronopost-mask-role' => 'suffix',
+                ],
                 'constraints' => [new Callback(['callback' => [$this, 'verifyStartMaskUrl']])],
             ])
         ;

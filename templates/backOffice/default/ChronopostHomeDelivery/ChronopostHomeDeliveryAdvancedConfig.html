@@ -54,10 +54,10 @@
                                 <h3>{intl l='Tracking link creation' d='chronoposthomedelivery.bo.default'}</h3>
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-6">
-                                        {render_form_field field='start_mask_url' extra_class='chronopost-mask-url-content chronopost-mask-url-prefix'}
+                                        {render_form_field field='start_mask_url'}
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
-                                        {render_form_field field='end_mask_url' extra_class='chronopost-mask-url-content chronopost-mask-url-suffix'}
+                                        {render_form_field field='end_mask_url'}
                                     </div>
                                 </div>
                                 <div class="chronopost-mask-url-wrapper">
@@ -81,26 +81,44 @@
         x.type = (x.type === "password")? "text" : "password";
     }
 
-    (function ($) {
-        function chronopostMaskUrlPreview() {
-            var prefix = '', suffix = '';
-            var $preview = $('.chronopost-mask-url-preview');
-            $preview.hide();
-            $('.chronopost-mask-url-content').each(function () {
-                var $el = $(this);
-                if ($el.hasClass('chronopost-mask-url-prefix') && $el.val()) {
-                    prefix = $el.val();
-                }
-                if ($el.hasClass('chronopost-mask-url-suffix') && $el.val()) {
-                    suffix = $el.val();
-                }
-            });
-            if (prefix || suffix) {
-                $preview.text(prefix + 'XXXXXXXXXXXXX' + suffix).show();
+    (function () {
+        function chronopostMaskUrlInit() {
+            var inputs = document.querySelectorAll('[data-chronopost-mask-role]');
+            var preview = document.querySelector('.chronopost-mask-url-preview');
+            console.log('[chronopost-preview] init', { inputs: inputs.length, preview: !!preview });
+            if (!preview || inputs.length === 0) {
+                return;
             }
+            function refresh() {
+                var prefix = '';
+                var suffix = '';
+                inputs.forEach(function (el) {
+                    if (el.getAttribute('data-chronopost-mask-role') === 'prefix') {
+                        prefix = el.value || '';
+                    }
+                    if (el.getAttribute('data-chronopost-mask-role') === 'suffix') {
+                        suffix = el.value || '';
+                    }
+                });
+                if (prefix !== '' || suffix !== '') {
+                    preview.textContent = prefix + 'XXXXXXXXXXXXX' + suffix;
+                    preview.style.display = '';
+                } else {
+                    preview.textContent = '';
+                    preview.style.display = 'none';
+                }
+            }
+            inputs.forEach(function (el) {
+                el.addEventListener('input', refresh);
+                el.addEventListener('change', refresh);
+                el.addEventListener('keyup', refresh);
+            });
+            refresh();
         }
-        $(document)
-            .ready(chronopostMaskUrlPreview)
-            .on('change keyup', '.chronopost-mask-url-content', chronopostMaskUrlPreview);
-    })(jQuery);
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', chronopostMaskUrlInit);
+        } else {
+            chronopostMaskUrlInit();
+        }
+    })();
 </script>

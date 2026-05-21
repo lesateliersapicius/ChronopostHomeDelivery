@@ -32,6 +32,6 @@ TXT,
     'Tracking link creation'                          => 'Création du lien de suivi',
     'Start URL'                                       => 'Début du lien de suivi',
     'End URL'                                         => 'Fin du lien de suivi',
-    'Preview: '                                       => 'Aperçu : ',
+    'Preview: '                                       => 'Prévisualisation du lien de suivi : ',
     'End URL cannot be set without a Start URL'       => 'L\'URL de fin ne peut être saisie sans une URL de début'
 ];
