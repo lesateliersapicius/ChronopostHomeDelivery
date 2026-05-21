@@ -3,11 +3,16 @@
 namespace ChronopostHomeDelivery\Form;
 
 
+use ApyVoucherShipments\Model\ApyShipper;
+use ChronopostHomeDelivery\ChronopostHomeDelivery;
 use ChronopostHomeDelivery\Config\ChronopostHomeDeliveryConst;
 use ChronopostHomeDelivery\Model\ChronopostHomeDeliveryDeliveryModeQuery;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Thelia\Core\Translation\Translator;
 use Thelia\Form\BaseForm;
 use Thelia\Model\LangQuery;
@@ -52,6 +57,36 @@ class ChronopostHomeDeliveryConfigurationForm extends BaseForm
             )
         ;
 
+        /** Tracking link — start/end URL split from the concatenated config value */
+        $maskUrlConfig = $config[ChronopostHomeDeliveryConst::CHRONOPOST_HOME_DELIVERY_MASK_URL];
+        $maskUrlParts = $maskUrlConfig
+            ? preg_split('{' . ApyShipper::MASK_SEPARATOR . '}', $maskUrlConfig)
+            : ['', ''];
+        $startMaskUrl = $maskUrlParts[0] ?? '';
+        $endMaskUrl = $maskUrlParts[1] ?? '';
+
+        $this->formBuilder
+            ->add('start_mask_url', UrlType::class, [
+                'required' => false,
+                'data'     => $startMaskUrl,
+                'label'    => Translator::getInstance()->trans(
+                    'Start URL',
+                    [],
+                    ChronopostHomeDelivery::DOMAIN_NAME
+                ),
+            ])
+            ->add('end_mask_url', TextType::class, [
+                'required'    => false,
+                'data'        => $endMaskUrl,
+                'label'       => Translator::getInstance()->trans(
+                    'End URL',
+                    [],
+                    ChronopostHomeDelivery::DOMAIN_NAME
+                ),
+                'constraints' => [new Callback(['callback' => [$this, 'verifyStartMaskUrl']])],
+            ])
+        ;
+
         $lang = $this->getRequest()->getSession()->get('thelia.current.admin_lang');
         if (null === $lang) {
             $lang = LangQuery::create()
@@ -85,5 +120,22 @@ class ChronopostHomeDeliveryConfigurationForm extends BaseForm
     public static function getName(): string
     {
         return "chronopost_home_delivery_configuration_form";
+    }
+
+    public function verifyStartMaskUrl(
+        /** @noinspection PhpUnusedParameterInspection */ $value,
+        ExecutionContextInterface $context
+    ) {
+        $data = $context->getRoot()->getData();
+
+        if (!empty($data['end_mask_url']) && empty($data['start_mask_url'])) {
+            $context->addViolation(
+                Translator::getInstance()->trans(
+                    'End URL cannot be set without a Start URL',
+                    [],
+                    ChronopostHomeDelivery::DOMAIN_NAME
+                )
+            );
+        }
     }
 }

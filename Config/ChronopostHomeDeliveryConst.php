@@ -25,6 +25,9 @@ class ChronopostHomeDeliveryConst
     const CHRONOPOST_HOME_DELIVERY_CODE_CLIENT                    = "chronopost_home_delivery_code";
     const CHRONOPOST_HOME_DELIVERY_PASSWORD                       = "chronopost_home_delivery_password";
 
+    /** Tracking link mask URL (start.MASK_SEPARATOR.end concatenated) */
+    const CHRONOPOST_HOME_DELIVERY_MASK_URL                       = "chronopost_home_delivery_mask_url";
+
     /** WSDL for the Chronopost Shipping Service */
     const CHRONOPOST_HOME_DELIVERY_SHIPPING_SERVICE_WSDL              = "https://ws.chronopost.fr/shipping-cxf/ShippingServiceWS?wsdl";
     //const CHRONOPOST_HOME_DELIVERY_RELAY_SEARCH_SERVICE_WSDL          = "https://ws.chronopost.fr/recherchebt-ws-cxf/PointRelaisServiceWS?wsdl";
@@ -57,6 +60,9 @@ class ChronopostHomeDeliveryConst
             /** Chronopost basic informations */
             self::CHRONOPOST_HOME_DELIVERY_CODE_CLIENT                => ChronopostHomeDelivery::getConfigValue(self::CHRONOPOST_HOME_DELIVERY_CODE_CLIENT),
             self::CHRONOPOST_HOME_DELIVERY_PASSWORD                   => ChronopostHomeDelivery::getConfigValue(self::CHRONOPOST_HOME_DELIVERY_PASSWORD),
+
+            /** Tracking link mask URL */
+            self::CHRONOPOST_HOME_DELIVERY_MASK_URL                   => ChronopostHomeDelivery::getConfigValue(self::CHRONOPOST_HOME_DELIVERY_MASK_URL),
 
             /** END */
         ];

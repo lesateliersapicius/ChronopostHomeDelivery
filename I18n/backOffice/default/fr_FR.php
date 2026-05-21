@@ -28,5 +28,10 @@ Si vous ne spécifiez pas de prix dans une tranche, elle aura la priorité sur l
 Si vous spécifiez à la fois un poids et un prix, le panier devra avoir "un poids inférieur et un prix inférieur" pour que la tranche soit appliquée.
 TXT,
     'Area not found'                                  => 'Zone de livraison non trouvée',
-    'Delivery mode not found'                         => 'Mode de livraison non trouvé'
+    'Delivery mode not found'                         => 'Mode de livraison non trouvé',
+    'Tracking link creation'                          => 'Création du lien de suivi',
+    'Start URL'                                       => 'URL de début',
+    'End URL'                                         => 'URL de fin',
+    'Preview: '                                       => 'Aperçu : ',
+    'End URL cannot be set without a Start URL'       => 'L\'URL de fin ne peut être saisie sans une URL de début'
 ];
