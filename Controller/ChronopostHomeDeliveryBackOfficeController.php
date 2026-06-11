@@ -60,6 +60,17 @@ class ChronopostHomeDeliveryBackOfficeController extends BaseAdminController
             ChronopostHomeDelivery::setConfigValue(ChronopostHomeDeliveryConst::CHRONOPOST_HOME_DELIVERY_CODE_CLIENT, $data[ChronopostHomeDeliveryConst::CHRONOPOST_HOME_DELIVERY_CODE_CLIENT]);
             ChronopostHomeDelivery::setConfigValue(ChronopostHomeDeliveryConst::CHRONOPOST_HOME_DELIVERY_PASSWORD, $data[ChronopostHomeDeliveryConst::CHRONOPOST_HOME_DELIVERY_PASSWORD]);
 
+            /** Tracking link mask URL (concatenation start.MASK_SEPARATOR.end, or '' if both empty) */
+            $startMaskUrl = $data['start_mask_url'] ?? '';
+            $endMaskUrl = $data['end_mask_url'] ?? '';
+            $maskUrl = ($startMaskUrl !== '' || $endMaskUrl !== '')
+                ? $startMaskUrl . ChronopostHomeDeliveryConst::MASK_SEPARATOR . $endMaskUrl
+                : '';
+            ChronopostHomeDelivery::setConfigValue(
+                ChronopostHomeDeliveryConst::CHRONOPOST_HOME_DELIVERY_MASK_URL,
+                $maskUrl
+            );
+
             /** Delivery types */
             foreach (ChronopostHomeDeliveryConst::getDeliveryTypesStatusKeys() as $statusKey) {
                 ChronopostHomeDelivery::setConfigValue($statusKey, $data[$statusKey]);
