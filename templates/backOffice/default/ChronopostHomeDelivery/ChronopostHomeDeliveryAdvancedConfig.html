@@ -3,11 +3,11 @@
     {form name="chronopost_home_delivery_configuration_form" type="chronopost_home_delivery_configuration_form"}
         <form class="chronopost-home-delivery-configuration-form" action="{url path='/admin/module/ChronopostHomeDelivery/config'}" method="post">
             <div class="title">{intl l="Chronopost informations"}</div>
-                {include
-                file      = "includes/inner-form-toolbar.html"
+            {include
+                file       = "includes/inner-form-toolbar.html"
                 hide_flags = true
                 hide_save_and_close_button = true
-                }
+            }
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-title">{intl l="Service Configuration" d='chronoposthomedelivery.bo.default'}</div>
@@ -28,12 +28,11 @@
 
                             <div class="form-group">
                                 {form_field field="chronopost_home_delivery_password"}
-
-                                <label for="{$name}" class="control-label">{$label}{if $required} <span class="required">*</span>{/if} : </label>
-                                <input type="password" id="mdp" name="{$name}" class="form-control" value="{$data}" placeholder="Your Chronopost password" aria-describedby="pwdHelpBlock">
-                                <button type="button" class="eye btn btn-primary btn-responsive" style="color:#FFF;background-color:#f6993c" onclick="togglePwd('mdp');">
-                                    <i class="glyphicon glyphicon-eye-open"></i>
-                                </button>
+                                    <label for="{$name}" class="control-label">{$label}{if $required} <span class="required">*</span>{/if} : </label>
+                                    <input type="password" id="mdp" name="{$name}" class="form-control" value="{$data}" placeholder="Your Chronopost password" aria-describedby="pwdHelpBlock">
+                                    <button type="button" class="eye btn btn-primary btn-responsive" style="color:#FFF;background-color:#f6993c" data-toggle-password-target="mdp">
+                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                    </button>
                                 {/form_field}
                             </div>
                         </div>
@@ -48,73 +47,25 @@
                         </div>
                     </div>
 
-                            <div class="well">
-                                <h3>{intl l='Tracking link creation' d='chronoposthomedelivery.bo.default'}</h3>
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-6">
-                                        {render_form_field field='start_mask_url'}
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6">
-                                        {render_form_field field='end_mask_url'}
-                                    </div>
-                                </div>
-                                <div class="chronopost-mask-url-wrapper">
-                                    <small>{intl l='Preview: ' d='chronoposthomedelivery.bo.default'}
-                                        <strong class="chronopost-mask-url-preview"></strong>
-                                    </small>
-                                </div>
+                    <div class="well">
+                        <h3>{intl l='Tracking link creation' d='chronoposthomedelivery.bo.default'}</h3>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                {render_form_field field='start_mask_url'}
                             </div>
+                            <div class="col-xs-12 col-sm-6">
+                                {render_form_field field='end_mask_url'}
+                            </div>
+                        </div>
+                        <div class="chronopost-mask-url-wrapper">
+                            <small>
+                                {intl l='Preview: ' d='chronoposthomedelivery.bo.default'}
+                                <strong class="chronopost-mask-url-preview"></strong>
+                            </small>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
     {/form}
 </div>
-
-<script>
-    function togglePwd(id)
-    {
-        var x = document.getElementById(id);
-        x.type = (x.type === "password")? "text" : "password";
-    }
-
-    (function () {
-        function chronopostMaskUrlInit() {
-            var inputs = document.querySelectorAll('[data-chronopost-mask-role]');
-            var preview = document.querySelector('.chronopost-mask-url-preview');
-            console.log('[chronopost-preview] init', { inputs: inputs.length, preview: !!preview });
-            if (!preview || inputs.length === 0) {
-                return;
-            }
-            function refresh() {
-                var prefix = '';
-                var suffix = '';
-                inputs.forEach(function (el) {
-                    if (el.getAttribute('data-chronopost-mask-role') === 'prefix') {
-                        prefix = el.value || '';
-                    }
-                    if (el.getAttribute('data-chronopost-mask-role') === 'suffix') {
-                        suffix = el.value || '';
-                    }
-                });
-                if (prefix !== '' || suffix !== '') {
-                    preview.textContent = prefix + 'XXXXXXXXXXXXX' + suffix;
-                    preview.style.display = '';
-                } else {
-                    preview.textContent = '';
-                    preview.style.display = 'none';
-                }
-            }
-            inputs.forEach(function (el) {
-                el.addEventListener('input', refresh);
-                el.addEventListener('change', refresh);
-                el.addEventListener('keyup', refresh);
-            });
-            refresh();
-        }
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', chronopostMaskUrlInit);
-        } else {
-            chronopostMaskUrlInit();
-        }
-    })();
-</script>
